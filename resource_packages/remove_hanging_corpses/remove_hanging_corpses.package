@@ -1,0 +1,11 @@
+mod = [
+	"remove_hanging_corpses"
+]
+
+package = [
+	"resource_packages/remove_hanging_corpses/remove_hanging_corpses"
+]
+
+lua = [
+	"scripts/mods/remove_hanging_corpses/*"
+]
