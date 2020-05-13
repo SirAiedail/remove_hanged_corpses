@@ -58,8 +58,6 @@ function CorpseDeleteHandler:update()
         local world = Managers.world:world("level_world")
 
         if world then
-            self.world = world
-
             local units = World.units(world)
             local num_units = #units
 
@@ -95,7 +93,9 @@ function CorpseDeleteHandler:update()
 
             for _, hash in ipairs(CORPSE_IDS) do
                 if h == hash then
-                    World.destroy_unit(self.world, unit)
+                    -- Hide the unit, but keeps its physics interactions
+                    -- `false` == invisible
+                    Unit.set_unit_visibility(unit, false)
                 end
             end
         end
