@@ -32,7 +32,7 @@ local CORPSE_IDS = {
 
 local function get_unit_hash(unit)
     local unit_name = tostring(unit)
-	local id = string.gsub(unit_name, "%[Unit '#ID%[", "")
+    local id = string.gsub(unit_name, "%[Unit '#ID%[", "")
     return string.gsub(id, "%]'%]", "")
 end
 
@@ -130,38 +130,38 @@ end)
 -- so it might break in the future.
 mod:hook_origin(GameModeManager, "_set_flow_object_set_enabled", function(self, set, enable, set_name)
     if set.flow_set_enabled == enable then
-		return
-	end
+        return
+    end
 
-	local level = LevelHelper:current_level(self._world)
-	set.flow_set_enabled = enable
-	local data = self._flow_set_data
-	local buffer = data.ring_buffer
-	local write_index = data.write_index
-	local read_index = data.read_index
-	local size = data.size
-	local max_size = data.max_size
-	local set_units = set.units
-	local new_units_size = #set_units
-	local new_size = size + new_units_size
-	local overflow = new_size - max_size
+    local level = LevelHelper:current_level(self._world)
+    set.flow_set_enabled = enable
+    local data = self._flow_set_data
+    local buffer = data.ring_buffer
+    local write_index = data.write_index
+    local read_index = data.read_index
+    local size = data.size
+    local max_size = data.max_size
+    local set_units = set.units
+    local new_units_size = #set_units
+    local new_size = size + new_units_size
+    local overflow = new_size - max_size
 
-	if overflow > 0 then
-		local amount_to_remove = math.min(overflow, size)
+    if overflow > 0 then
+        local amount_to_remove = math.min(overflow, size)
 
-		for i = 1, amount_to_remove, 1 do
-			local unit_index = buffer[read_index]
+        for i = 1, amount_to_remove, 1 do
+            local unit_index = buffer[read_index]
 
-			self:_set_flow_object_set_unit_enabled(level, unit_index)
+            self:_set_flow_object_set_unit_enabled(level, unit_index)
 
-			read_index = read_index % max_size + 1
-			size = size - 1
-		end
+            read_index = read_index % max_size + 1
+            size = size - 1
+        end
 
-		data.read_index = read_index
-	end
+        data.read_index = read_index
+    end
 
-	local object_set_size_overflow = new_units_size - max_size
+    local object_set_size_overflow = new_units_size - max_size
 
     for i, unit_index in ipairs(set_units) do
         repeat
@@ -189,10 +189,10 @@ mod:hook_origin(GameModeManager, "_set_flow_object_set_enabled", function(self, 
                 size = size + 1
             end
         until true
-	end
+    end
 
-	data.write_index = write_index
-	data.size = size
+    data.write_index = write_index
+    data.size = size
 end)
 
 mod:hook_safe(StateInGameRunning, "on_enter", function()
