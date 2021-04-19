@@ -28,6 +28,9 @@ local CORPSE_IDS = {
     "a1585c6b36c93f6d",
     "ecfe78f460261b5d",
     "07929ad52758eaab",
+    "ecfe78f460261b5d",
+    "8becef3d20603fe1",
+    "3e85d08773b37a5f",
 }
 
 local function get_unit_hash(unit)
